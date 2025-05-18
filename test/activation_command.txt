@@ -1,0 +1,2 @@
+Enter the Container
+docker exec -it ai-docker-env bash
