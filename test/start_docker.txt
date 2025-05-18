@@ -1,0 +1,2 @@
+Build & Start Docker Environment
+docker-compose up --build -d
