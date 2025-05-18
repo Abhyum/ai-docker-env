@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  ai-core:
+    build: .
+    container_name: ai-docker-env
+    volumes:
+      - .:/workspace
+    runtime: nvidia
+    deploy:
+      resources:
+        limits:
+          memory: 8G
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+    ports:
+      - "8000:8000"
+      - "7860:7860"
+      - "3000:3000"
+      - "5000:5000"
+
+  postgres:
+    image: postgres:15
+    container_name: postgres-db
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: aienv
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:alpine
+    container_name: redis-db
+    ports:
+      - "6379:6379"
+
+  mongo:
+    image: mongo
+    container_name: mongo-db
+    ports:
+      - "27017:27017"
